@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
 import requests
 from bs4 import BeautifulSoup
@@ -23,3 +25,15 @@ df.drop('NewCases',axis=1,inplace=True)
 #نحفظ على نفس العامود عشان لا تتغير علينا البيانات
 df['TotalCases']= df['TotalCases'].str.replace(',','')
 df['TotalCases'].str.replace(',','')
+#نغيرر التايب
+df['TotalCases']=df['TotalCases'].astype(int)
+#df['TotalDeaths']=df['TotalDeaths'].astype(int)
+
+df['TotalDeaths']= pd.to_numeric(df['TotalDeaths'],errors='coerce')
+
+df['TotalDeaths'].fillna(0,inplace=True)
+print(df)
+# استخراج البيانات الى CSV
+#df.to_csv('data.csv',index=False)
+df.columns()
+df.plot(kind='bar',x='Country',y='TotalCases')
